@@ -1,9 +1,10 @@
 from flask import Flask, render_template
 from dotenv import load_dotenv
-from config import Config
-from extensions import db
 
 load_dotenv()
+
+from config import Config
+from extensions import db
 
 app = Flask(__name__)
 app.config.from_object(Config)
