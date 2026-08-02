@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Application{% endblock %}
+
+{% block content %}
+    <h1>Edit Job Application</h1>
+
+    <form method="POST">
+        <label>Company:</label><br>
+        <input type="text" name="company" value="{{ application.company }}" required><br><br>
+
+        <label>Role:</label><br>
+        <input type="text" name="role" value="{{ application.role }}" required><br><br>
+
+        <label>Status:</label><br>
+        <select name="status">
+            {% for option in ["Applied", "Interview", "Offer", "Rejected"] %}
+                <option value="{{ option }}" {% if application.status == option %}selected{% endif %}>
+                    {{ option }}
+                </option>
+            {% endfor %}
+        </select><br><br>
+
+        <label>Date Applied:</label><br>
+        <input type="date" name="date_applied" value="{{ application.date_applied }}" required><br><br>
+
+        <label>Job URL:</label><br>
+        <input type="url" name="job_url" value="{{ application.job_url or '' }}"><br><br>
+
+        <label>Notes:</label><br>
+        <textarea name="notes" rows="4">{{ application.notes or '' }}</textarea><br><br>
+
+        <button type="submit">Save Changes</button>
+    </form>
+{% endblock %}

@@ -9,3 +9,19 @@ nav {
     margin-bottom: 20px;
     font-weight: bold;
 }
+
+.flash {
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.flash-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.flash-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}

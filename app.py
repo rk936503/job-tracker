@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -35,6 +35,32 @@ def add_application():
         return redirect(url_for("home"))
 
     return render_template("add_application.html")
+
+@app.route("/edit/<int:app_id>", methods=["GET", "POST"])
+def edit_application(app_id):
+    application = JobApplication.query.get_or_404(app_id)
+
+    if request.method == "POST":
+        application.company = request.form["company"]
+        application.role = request.form["role"]
+        application.status = request.form["status"]
+        application.date_applied = request.form["date_applied"]
+        application.notes = request.form.get("notes")
+        application.job_url = request.form.get("job_url")
+
+        db.session.commit()
+        flash("Application updated successfully!", "success")
+        return redirect(url_for("home"))
+
+    return render_template("edit_application.html", application=application)
+
+@app.route("/delete/<int:app_id>", methods=["POST"])
+def delete_application(app_id):
+    application = JobApplication.query.get_or_404(app_id)
+    db.session.delete(application)
+    db.session.commit()
+    flash("Application deleted.", "success")
+    return redirect(url_for("home"))
 
 if __name__ == "__main__":
     app.run(debug=app.config["DEBUG"])
