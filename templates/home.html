@@ -3,6 +3,40 @@
 {% block title %}Home - Job Tracker{% endblock %}
 
 {% block content %}
-    <h1>Welcome to your Job Application Tracker</h1>
-    <p>This is the homepage. Applications table coming soon.</p>
+    <h1>Your Job Applications</h1>
+    
+    <a href="{{ url_for('add_application') }}">+ Add New Application</a>
+
+    <table border="1" cellpadding="8">
+        <thead>
+            <tr>
+                <th>Company</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Date Applied</th>
+                <th>Job Link</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for app in applications %}
+            <tr>
+                <td>{{ app.company }}</td>
+                <td>{{ app.role }}</td>
+                <td>{{ app.status }}</td>
+                <td>{{ app.date_applied }}</td>
+                <td>
+                    {% if app.job_url %}
+                        <a href="{{ app.job_url }}" target="_blank">Link</a>
+                    {% else %}
+                        ---
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5">No applications yet. Add your first one!</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
