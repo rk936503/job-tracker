@@ -8,10 +8,12 @@
 <body>
     <nav>
         <a href="{{ url_for('home') }}">Job Tracker</a>
+        
         {% if current_user.is_authenticated %}
-            &nbsp;|&nbsp; Logged in as {{ current_user.username }}
-            &nbsp;|&nbsp; <a href="{{ url_for('logout') }}">Logout</a>
-        {% endif %}
+        &nbsp;|&nbsp; <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        &nbsp;|&nbsp; Logged in as {{ current_user.username }}
+        &nbsp;|&nbsp; <a href="{{ url_for('logout') }}">Logout</a>
+    {% endif %}
     </nav>
 
     <main>

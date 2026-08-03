@@ -27,6 +27,17 @@ def home():
     applications = JobApplication.query.order_by(JobApplication.date_applied.desc()).all()
     return render_template("home.html", applications=applications)
 
+@app.route("/dashboard")
+@login_required
+def dashboard():
+    statuses = ["Applied", "Interview", "Offer", "Rejected"]
+    status_counts = {}
+    for status in statuses:
+        status_counts[status] = JobApplication.query.filter_by(status=status).count()
+    total = JobApplication.query.count()
+
+    return render_template("dashboard.html", status_counts=status_counts, total=total)
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if User.query.first():
