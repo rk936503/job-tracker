@@ -1,0 +1,27 @@
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=postgresql://job_tracker_user:changeme123@db:5432/job_tracker
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: job_tracker_user
+      POSTGRES_PASSWORD: changeme123
+      POSTGRES_DB: job_tracker
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:
