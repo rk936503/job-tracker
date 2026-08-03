@@ -22,6 +22,7 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 @app.route("/")
+@login_required
 def home():
     applications = JobApplication.query.order_by(JobApplication.date_applied.desc()).all()
     return render_template("home.html", applications=applications)
@@ -71,6 +72,7 @@ def logout():
     return redirect(url_for("login"))
 
 @app.route("/add", methods=["GET", "POST"])
+@login_required
 def add_application():
     if request.method == "POST":
         new_app = JobApplication(
@@ -88,6 +90,7 @@ def add_application():
     return render_template("add_application.html")
 
 @app.route("/edit/<int:app_id>", methods=["GET", "POST"])
+@login_required
 def edit_application(app_id):
     application = JobApplication.query.get_or_404(app_id)
 
@@ -106,6 +109,7 @@ def edit_application(app_id):
     return render_template("edit_application.html", application=application)
 
 @app.route("/delete/<int:app_id>", methods=["POST"])
+@login_required
 def delete_application(app_id):
     application = JobApplication.query.get_or_404(app_id)
     db.session.delete(application)
