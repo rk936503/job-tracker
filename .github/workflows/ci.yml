@@ -27,4 +27,8 @@ jobs:
         run: flake8 .
 
       - name: Run tests
+        env:
+          SECRET_KEY: ci-test-secret
+          DATABASE_URL: sqlite:///:memory:
+          FLASK_DEBUG: "False"
         run: pytest
