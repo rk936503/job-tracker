@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from dotenv import load_dotenv
+from datetime import datetime
 
 load_dotenv()
 
@@ -40,7 +41,7 @@ def create_app(config_overrides=None):
                 company=request.form["company"],
                 role=request.form["role"],
                 status=request.form["status"],
-                date_applied=request.form["date_applied"],
+                date_applied=datetime.strptime(request.form["date_applied"], "%Y-%m-%d").date(),
                 notes=request.form.get("notes"),
                 job_url=request.form.get("job_url")
             )
@@ -57,7 +58,7 @@ def create_app(config_overrides=None):
             application.company = request.form["company"]
             application.role = request.form["role"]
             application.status = request.form["status"]
-            application.date_applied = request.form["date_applied"]
+            application.date_applied = datetime.strptime(request.form["date_applied"], "%Y-%m-%d").date()
             application.notes = request.form.get("notes")
             application.job_url = request.form.get("job_url")
             db.session.commit()
