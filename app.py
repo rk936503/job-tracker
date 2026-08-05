@@ -4,11 +4,11 @@ from datetime import datetime
 
 load_dotenv()
 
-from config import Config
-from extensions import db, login_manager
-from flask_migrate import Migrate
-from models import JobApplication, User
-from flask_login import login_user, logout_user, login_required, current_user
+from config import Config  # noqa: E402
+from extensions import db, login_manager  # noqa: E402
+from flask_migrate import Migrate     # noqa: E402
+from models import JobApplication, User   # noqa: E402
+from flask_login import login_user, logout_user, login_required  # noqa: E402
 
 
 def create_app(config_overrides=None):
