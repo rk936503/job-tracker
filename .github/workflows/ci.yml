@@ -29,6 +29,6 @@ jobs:
       - name: Run tests
         env:
           SECRET_KEY: ci-test-secret
-          DATABASE_URL: sqlite:///:memory:
+          DATABASE_URL: "sqlite:///:memory:"
           FLASK_DEBUG: "False"
         run: pytest
